@@ -16,12 +16,15 @@ export default function App() {
 
   function handlePrevious() {
     // alert("Previous");
-    if (step > 1) setStep(step - 1);
+    if (step > 1) setStep((s) => s - 1);
   }
 
   function handleNext() {
     // alert("Next");
-    if (step < 3) setStep(step + 1);
+    if (step < 3) {
+      setStep((s) => s + 1);
+      // setStep((s) => s + 1);
+    }
 
     // BAD PRACTICE
     // test.name = "Catty";
@@ -30,7 +33,7 @@ export default function App() {
   }
 
   function handleToggle() {
-    setIsOpen(!isOpen);
+    setIsOpen((is) => !is);
     setStep(1);
   }
 
@@ -60,7 +63,6 @@ export default function App() {
             </button>
             <button
               style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              onCl
               onClick={handleNext}
             >
               Next
