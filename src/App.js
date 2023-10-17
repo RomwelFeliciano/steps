@@ -7,6 +7,20 @@ const messages = [
 ];
 
 export default function App() {
+  return (
+    <div>
+      <Steps />
+      <StepMessage step={1}>
+        <p>Pass in Content</p>
+      </StepMessage>
+      <StepMessage step={2}>
+        <p>Read Children Prop</p>
+      </StepMessage>
+    </div>
+  );
+}
+
+function Steps() {
   // const step = 1;
 
   const [step, setStep] = useState(1);
@@ -36,7 +50,6 @@ export default function App() {
     setIsOpen((is) => !is);
     setStep(1);
   }
-
   return (
     <>
       <button className="close" onClick={handleToggle}>
@@ -49,27 +62,51 @@ export default function App() {
             <div className={step >= 2 ? "active" : ""}>2</div>
             <div className={step >= 3 ? "active" : ""}>3</div>
           </div>
-          <p className="message">
-            Step {step}: {messages[step - 1]}
-            {/* {test.name} */}
-          </p>
+          <StepMessage step={step}>
+            {messages[step - 1]}
+            <div className="buttons">
+              <Button
+                textColor="#fbd008"
+                bgColor="#545454"
+                onClick={() => alert("Yowaimo")}
+              >
+                Try and Click Me
+              </Button>
+            </div>
+          </StepMessage>
 
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              onClick={handlePrevious}
-            >
-              Previous
-            </button>
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              onClick={handleNext}
-            >
-              Next
-            </button>
+            <Button textColor="#fff" bgColor="#7950f2" onClick={handlePrevious}>
+              <span>👈</span>Previous
+            </Button>
+            <Button textColor="#fff" bgColor="#7950f2" onClick={handleNext}>
+              Next<span>👉</span>
+            </Button>
           </div>
         </div>
       )}
     </>
+  );
+}
+
+function StepMessage({ step, children }) {
+  return (
+    <>
+      <p className="message">
+        <h3>Step {step}</h3>
+        {children}
+      </p>
+    </>
+  );
+}
+
+function Button({ textColor, bgColor, onClick, children }) {
+  return (
+    <button
+      style={{ backgroundColor: bgColor, color: textColor }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 }
